@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2021/04/19 21:17:32.000.043,=C:\Users\Hendell Cardoso\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/04/19 21:23:07.000.944,C:\Users\Hendell Cardoso\Documents\Embarcadero\Studio\Projects\Exemplo.dproj=C:\Users\Hendell Cardoso\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2021/04/19 21:23:13.000.761,C:\Users\Hendell Cardoso\Documents\Embarcadero\Studio\Projects\Principal.pas=C:\Users\Hendell Cardoso\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/04/19 21:23:13.000.761,C:\Users\Hendell Cardoso\Documents\Embarcadero\Studio\Projects\Principal.dfm=C:\Users\Hendell Cardoso\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2021/04/19 21:23:47.000.307,F:\ProjetosDF\WTSApi Web\Principal.pas=C:\Users\Hendell Cardoso\Documents\Embarcadero\Studio\Projects\Principal.pas</Transaction>
+    <Transaction>2021/04/19 21:23:47.000.307,F:\ProjetosDF\WTSApi Web\Principal.dfm=C:\Users\Hendell Cardoso\Documents\Embarcadero\Studio\Projects\Principal.dfm</Transaction>
+    <Transaction>2021/04/19 21:23:52.000.497,F:\ProjetosDF\WTSApi Web\Exemplo.dproj=C:\Users\Hendell Cardoso\Documents\Embarcadero\Studio\Projects\Exemplo.dproj</Transaction>
+    <Transaction>2021/04/19 22:24:01.000.827,=F:\ProjetosDF\WTSApi Web\Unit1.pas</Transaction>
+    <Transaction>2021/04/19 22:24:11.000.763,F:\ProjetosDF\WTSApi Web\WTSApiWeb.pas=F:\ProjetosDF\WTSApi Web\Unit1.pas</Transaction>
+    <Transaction>2021/09/22 22:14:45.934,D:\WPP Projetos\delphi\WTSApi.pas=D:\WPP Projetos\delphi\WTSApiWeb.pas</Transaction>
+  </Transactions>
+</BorlandProject>

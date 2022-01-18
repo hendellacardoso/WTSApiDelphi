@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.Imaging.pngimage, Soap.EncdDecd;
+  Vcl.Imaging.pngimage, Soap.EncdDecd, StrUtils;
 
 type
   TFPrincipal = class(TForm)
@@ -35,7 +35,7 @@ type
     lblStatusEnvio: TLabel;
     lblStatusGrupo: TLabel;
     edtRetorno: TMemo;
-    Button1: TButton;
+    botFotoGrupo: TButton;
     procedure FormCreate(Sender: TObject);
     procedure botSelecionarClick(Sender: TObject);
     procedure botConectarWhatsappClick(Sender: TObject);
@@ -43,6 +43,7 @@ type
     procedure TimerQrTimer(Sender: TObject);
     procedure botCriarGrupoClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure botFotoGrupoClick(Sender: TObject);
   private
     { Private declarations }
     function PreparaTexto(Texto: String): String;
@@ -145,9 +146,9 @@ begin
     ResponseJSON.AddPair('phone', edtTelefone.Text);
     ResponseJSON.AddPair('message', PreparaTexto(txtMensagem.Text));
     if chkGrupo.Checked then
-       ResponseJSON.AddPair('isGroup', TJSONFalse.Create(true))
+       ResponseJSON.AddPair('isGroup', TJSONFalse.Create())
     else
-       ResponseJSON.AddPair('isGroup', TJSONFalse.Create(false));
+       ResponseJSON.AddPair('isGroup', TJSONFalse.Create());
     JSON := apiPOST(strServidor,'send-message',strSessao, strToken,'', ResponseJSON.ToString);
   end
   else
@@ -156,15 +157,62 @@ begin
     ResponseJSON.AddPair('base64', fileData + StringReplace(EncodeFile(edtArquivo.Text),#13#10,'',[rfReplaceAll]) );
     ResponseJSON.AddPair('fileName', ExtractFileName(edtArquivo.Text));
     if chkGrupo.Checked then
-       ResponseJSON.AddPair('isGroup', TJSONFalse.Create(true))
+       ResponseJSON.AddPair('isGroup', TJSONFalse.Create())
     else
-       ResponseJSON.AddPair('isGroup', TJSONFalse.Create(false));
+       ResponseJSON.AddPair('isGroup', TJSONFalse.Create());
     if (txtMensagem.Text<>'') then
        ResponseJSON.AddPair('message', PreparaTexto(txtMensagem.Text));
     JSON := apiPOST(strServidor,'send-file-base64',strSessao, strToken,'', ResponseJSON.ToString);
   end;
   lblStatusEnvio.Caption := CampoJSON( JSON, 'status');
   edtRetorno.Text := ResponseJSON.ToString();
+
+end;
+
+
+
+procedure TFPrincipal.botFotoGrupoClick(Sender: TObject);
+var
+  JSON: String;
+  ResponseJSON: TJSONObject;
+begin
+
+  if (Length(edtTelefone.Text) < 18) then
+  begin
+     ShowMessage('O ID do Grupo informado é inválido!');
+     exit;
+  end;
+
+
+  if (Length(edtArquivo.Text) = 0) then
+  begin
+     ShowMessage('Selecione uma imagem');
+     exit;
+  end;
+
+  if (AnsiContainsStr(edtArquivo.Text,'.jpg')) or
+      (AnsiContainsText(edtArquivo.Text, '.png')) then
+  begin
+
+      if (lblSituacaoConexao.Caption <> 'CONNECTED') then
+      begin
+        ShowMessage('Você tem que conectar o WhatsApp.');
+        exit;
+      end;
+
+      JSON := apiChangePic(strServidor, 'group-pic', strSessao, strToken, edtTelefone.Text, edtArquivo.Text);
+      edtRetorno.Text := JSON;
+
+  end
+  else
+  begin
+
+     ShowMessage('Arquivo de imagem inválido');
+
+  end;
+
+
+
 
 end;
 
@@ -206,7 +254,7 @@ begin
   lblSituacaoConexao.Caption := 'Situação da Conexão';
   strServidor := 'http://127.0.0.1:28045'; //SOLICITE SEU TOKEN EM (62)9.8165-9440
   strSessao   := '5562981659440';
-  strToken    := '$2b$10$QW0IZunHbSDGNxaCFu0Szuih01rwj_T4KR0pXun7P0pIuHp5zNPxO';
+  strToken    := '$2b$10$.vDGBTj4lMh7kw3Q9dtk2.oDp3MDD4Y1ZmvGGm33nQCOxYDS5tg1O';
   strWebhook  := '';
 end;
 

@@ -33,7 +33,7 @@ object FPrincipal: TFPrincipal
   object Label7: TLabel
     Left = 472
     Top = 16
-    Width = 97
+    Width = 43
     Height = 16
     Caption = 'Arquivo'
     Font.Charset = DEFAULT_CHARSET
@@ -289,14 +289,20 @@ object FPrincipal: TFPrincipal
     ScrollBars = ssBoth
     TabOrder = 9
   end
-  object Button1: TButton
+  object botFotoGrupo: TButton
     Left = 303
     Top = 191
-    Width = 75
-    Height = 25
-    Caption = 'Button1'
+    Width = 177
+    Height = 36
+    Caption = 'Trocar Foto do Grupo'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 10
-    OnClick = Button1Click
+    OnClick = botFotoGrupoClick
   end
   object OpenDialog1: TOpenDialog
     Filter = 'Documento / Imagem|*.*'

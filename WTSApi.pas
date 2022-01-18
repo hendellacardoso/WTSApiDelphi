@@ -36,6 +36,7 @@ function apiPOST(servidor, endpoint, sessao, token, webhook, json: String): Stri
 function EncodeFile(const FileName: String): String;
 function IniciarSessao(Servidor,Endpoint,Sessao,Token,Webhook:String):String;
 function GetMIMEType(FileName: String): String;
+function apiChangePic(servidor, endpoint, sessao, token, numero, pic: String): String;
 
 implementation
 
@@ -225,6 +226,49 @@ begin
       dados.Free;
   end;
 end;
+
+
+
+
+function apiChangePic(servidor, endpoint, sessao, token, numero, pic: String): String;
+var
+   sResponse : String;
+   Params: TIdMultiPartFormDataStream;
+   HTTP : TIdHTTP;
+begin
+   endpoint := servidor + '/api/' + sessao + '/' + endpoint;
+   Params :=  TIdMultiPartFormDataStream.Create;
+   try
+
+      //adiciona foto
+      Params.AddFile('file', pic);
+      Params.AddFormField('phone', numero);
+
+      HTTP := TIdHTTP.Create(nil);
+      HTTP.Request.Method := 'POST';
+      HTTP.Request.Clear;
+      HTTP.Request.ContentType := 'application/json';
+      HTTP.Request.CharSet := 'UTF-8';
+      HTTP.Request.CustomHeaders.Values['accept'] := '*/*';
+      HTTP.Request.CustomHeaders.Values['Content-Type'] := 'application/json';
+      if (token <> '') then
+         HTTP.Request.CustomHeaders.Values['Authorization'] := 'Bearer ' + token;
+      try
+         sResponse := HTTP.post(endpoint, Params );
+      except
+         on E: Exception do
+         begin
+            result := '{"status":"'+ e.ToString +'"}';
+         end;
+      end;
+      result := sResponse;
+  finally
+      HTTP.Free;
+      Params.Free;
+  end;
+end;
+
+
 
 
 end.
